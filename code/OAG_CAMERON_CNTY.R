@@ -4,13 +4,10 @@ library(readr)
 library(readxl)
 library(dplyr)
 
+
+OAG_Cam_Cnty <- read_csv("TX_OAG_Cameron_Cnty_48_Categories.csv")
+
 AM_University_Cam_Cnty <- read_csv("AM_Cam_County_style.csv")
-
-community_count <- AM_University_Cam_Cnty %>% 
-  count(Precinct, `Health Risk Indicator`, name = "Sorted Communities")
-
-community_count %>% ggplot(aes(x = factor(Precinct), y = `Sorted Communities`, fill = `Health Risk Indicator`)) + geom_col(position = "dodge", color = "black") + labs(title = "", x = "", y = "", fill = "")
-
 
 ###############################################
 # A&M had staff and volunteers cross check data manually with OAG map
@@ -32,26 +29,6 @@ community_count %>% ggplot(aes(x = factor(Precinct), y = `Sorted Communities`, f
 
 # A&M would benefit from recording roads paved, roads passable, in floodplain,
 # streetlights
-
-# OAG - A&M equivalent column accuracy comparison:
-# COMM_NM == Colonia Name
-# MNumber == Colonia ID
-# ALTERNATEN == Alternative Name
-# COMMISSIONER PCT == Precinct #
-# IS_PLATTED == Plat Available & Recorded
-# COLOR_CLAS == 2015 SB 827 Report
-# EST_POP == Est. Household Pop. (OAG)
-# INCORPORAT == Community Incorporated (OAG)
-# WATERCOMMU == Water Service Provider (OAG)
-# WWCOMMUNIT == Wastewater Community Service (OAG)
-# TRASH_COLL == Trash Collection Available (OAG)
-# NUMLOTS == # of Property Lots (OAG)
-
-# Cross column analysis - possible crosswalk table
-# LOCATION == Cross Streets / Borders
-# Color_Clas == 2022 Needs Assessment Color Class Observations 
-# RAINFALL_F, IN_FLOODPL == Flooding Risk FLUJOS Flood Map March 2025 Storm
-
 ########################################################
 
 Filtered_OAG <- OAG_Cam_Cnty %>%
@@ -66,4 +43,28 @@ OAG_AM_MNumberdf <- Filtered_OAG %>% full_join(
 
 OAG_AM_Name <- Filtered_OAG %>% full_join(
   AM_University_Cam_Cnty, by = c("COMM_NM" = "Colonia Name"))
+
+AM_University_Cam_Cnty %>%
+  ggplot(aes(x = `Health Risk Indicator`)) +
+  geom_bar()
+
+AM_University_Cam_Cnty %>%
+  ggplot(aes(x = `2022 Needs Assessment Observations Health-Risk Color Classification`))+
+  geom_histogram(binwidth = 1)
+
+
+
+
+
+
+AM_University_Cam_Cnty %>%
+  ggplot(aes(x = Precinct, color = `Health Risk Indicator`)) +
+  geom_line(aes(y = )) +
+theme_minimal() +
+  labs(x = "Precinct",
+       title = "Colonia Health Risk Indicators" ,
+       subtitle = "Source: Texas A&M Colonias Program",
+       color = "") +
+  theme(legend.position = "bottom")
+
 

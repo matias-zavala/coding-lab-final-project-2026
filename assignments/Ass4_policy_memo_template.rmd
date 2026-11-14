@@ -1,0 +1,107 @@
+---
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    number_sections: false
+documentclass: article
+classoption: letterpaper
+fontsize: 11pt
+geometry: margin=1in
+colorlinks: true
+urlcolor: blue
+header-includes:
+  - |
+    \makeatletter
+    \renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-1.5ex plus -.5ex minus -.2ex}{1ex plus .2ex}{\normalfont\large\bfseries}}
+    \makeatother
+  - \let\memosection\subsection
+  - \renewcommand{\subsection}[1]{\memosection{#1}\nopagebreak\vspace{-3pt}\hrule height 0.4pt\nopagebreak\vspace{6pt}}
+  - \setkeys{Gin}{keepaspectratio}
+  - \pagestyle{plain}
+  - \raggedbottom
+  - \widowpenalty=10000
+  - \clubpenalty=10000
+  - \setlength{\parindent}{0pt}
+  - \setlength{\parskip}{6pt}
+---
+
+```{r setup, include=FALSE}
+# R code: runs automatically when you click Knit in RStudio.
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
+graph_path <- "figures/a3-first-plot.png"
+```
+
+\begin{center}
+{\small Harris School of Public Policy\\
+PPHA 30110 Coding Lab for Public Policy\\
+University of Chicago\par}
+\vspace{6pt}
+{\large\bfseries POLICY MEMORANDUM\par}
+\end{center}
+
+**To:** [A specific policy reader or organization]  
+**From:** [Your name], PPHA 30110  
+**Date:** [Month day, year]  
+**Subject:** [A short subject that communicates the decision or finding]
+
+## Executive Summary
+
+[Summarize the policy question, your main finding, and the action you
+recommend. Give your reader the essential message in two or three sentences.
+Write this section last.]
+
+## Background
+
+[What decision does this memo inform, and why should your reader care?
+Identify who or what is affected. Use one short paragraph.]
+
+## Key Facts & Data
+
+[Identify your dataset, place, period, and what one row represents. Define
+your indicator in plain language, including its units, threshold, or
+denominator as relevant. Explain one main pattern and give at least one
+specific value or comparison checked in your existing A3 analysis.]
+
+<!-- Keep these formatting blocks: they keep the graph and caption together. -->
+```{=latex}
+\begin{minipage}{\linewidth}
+```
+
+```{r memo-figure, results='asis', out.width='90%', out.height='2.8in'}
+# R code: runs automatically when you click Knit in RStudio.
+# Change graph_path in the setup chunk if your A3 image has another name.
+if (file.exists(graph_path)) {
+  knitr::include_graphics(graph_path)
+} else {
+  cat("\n\n*Graph missing: put your A3 PNG in figures/a3-first-plot.png, ",
+      "or update graph_path in the setup chunk, then knit again.*\n\n",
+      sep = "")
+}
+```
+
+*Figure 1. [What the graph measures, with units, place, and period.
+Source: dataset name.]*
+
+```{=latex}
+\end{minipage}
+```
+
+## Recommendation
+
+[State one feasible action your reader should take and explain why the
+finding supports it. Keep the strength of the recommendation consistent
+with what your data can show. Use one short paragraph.]
+
+## Limits and next step
+
+[Explain one limitation and how it affects your recommendation. Describe
+one practical tradeoff or alternative. End with one specific piece of
+information or check needed before your reader takes further action.]
+
+## Sources and methods
+
+**Data:** [Dataset name](https://example.com/replace-with-your-dataset-url).
+
+**Method:** [In one or two sentences, explain how you created the indicator
+and graph, including relevant exclusions or missing values.]
+Graph code: `code/3-plot.R`.
