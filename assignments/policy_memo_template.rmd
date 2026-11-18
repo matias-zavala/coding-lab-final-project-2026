@@ -39,7 +39,7 @@ University of Chicago\par}
 {\large\bfseries POLICY MEMORANDUM\par}
 \end{center}
 
-**To:** [Rodrigo ]  
+**To:** [Rodrigo Guzman]  
 **From:** [Matias Zavala], PPHA 30110  
 **Date:** [Month day, year]  
 **Subject:** [A short subject that communicates the decision or finding]
